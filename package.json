@@ -4,7 +4,7 @@
   "private": true,
   "description": "教师黑板帖生成器，浏览器端批量生成 PPTX 黑板帖。",
   "engines": {
-    "node": "22.x"
+    "node": "24.x"
   },
   "type": "commonjs",
   "scripts": {
