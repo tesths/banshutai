@@ -1,0 +1,16 @@
+{
+  "name": "板书台",
+  "short_name": "板书台",
+  "description": "面向教师的黑板帖生成器。",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f3f0eb",
+  "theme_color": "#f3f0eb",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "name": "banshutai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "教师黑板帖生成器，浏览器端批量生成 PPTX 黑板帖。",
+  "engines": {
+    "node": "22.x"
+  },
+  "type": "commonjs",
+  "scripts": {
+    "test": "npm run test:engine && npm run test:ui",
+    "test:engine": "node --test",
+    "test:ui": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.node.json --noEmit",
+    "dev": "vite --host 127.0.0.1 --port 1420 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort"
+  },
+  "dependencies": {
+    "@xmldom/xmldom": "^0.8.13",
+    "jszip": "^3.10.1",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^25.6.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "jsdom": "^29.0.2",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.8",
+    "vitest": "^4.1.4"
+  }
+}
