@@ -11,13 +11,14 @@ import {
   type PptSummary
 } from "./lib/pptWorkflow";
 
-const DEFAULT_ACCENT_HEX = "2F6BFF";
+const DEFAULT_ACCENT_HEX = "4E95D9";
 const DEFAULT_SHELL_ACCENT = `#${DEFAULT_ACCENT_HEX}`;
 const DEFAULT_OUTPUT_NAME = "板书台-导出结果.pptx";
 const ANALYSIS_DELAY_MS = 180;
 const CUSTOM_ACCENT_COPY = "仅覆盖蓝色描边层。";
+const TEMPLATE_PREVIEW_SRC = `${(import.meta.env.BASE_URL || "/").replace(/\/?$/, "/")}default-template-preview.png`;
 const ACCENT_PRESETS = [
-  { name: "蓝", hex: "2F6BFF" },
+  { name: "蓝", hex: "4E95D9" },
   { name: "橙", hex: "D86A36" },
   { name: "青", hex: "0F9ED5" },
   { name: "绿", hex: "4F7A55" },
@@ -249,7 +250,6 @@ export default function App() {
       <main className="app-frame">
         <header className="shell-head">
           <div className="shell-brand">
-            <p className="eyebrow">浏览器版</p>
             <h1>板书台</h1>
             <p className="shell-copy">面向教师的黑板帖生成器。多行文本一行一页，自动预估页数并直接下载 PPTX 结果。</p>
           </div>
@@ -309,9 +309,44 @@ export default function App() {
             </label>
 
             <p className="composer-note">按行生成，不会改动原文，浏览器会直接下载 `.pptx` 结果。</p>
+
+            <section className="actions-panel" aria-labelledby="download-panel-title">
+              <div className="panel-head">
+                <div>
+                  <p className="panel-kicker">生成</p>
+                  <h2 id="download-panel-title">下载输出</h2>
+                </div>
+              </div>
+
+              <div className="actions">
+                <button className="primary-button" type="button" onClick={handleGenerate} disabled={!canGenerate}>
+                  {primaryActionBusyLabel}
+                </button>
+              </div>
+
+              <p className="field-help">当前 {inputLines.length} 行，预计生成 {summary.pageCount} 页。</p>
+              <p className="output-path">最近结果：{formatLastSaved(savedPath)}</p>
+            </section>
           </section>
 
           <aside className="rail">
+            <section className="panel preview-panel" aria-labelledby="preview-panel-title">
+              <div className="panel-head">
+                <div>
+                  <p className="panel-kicker">最终效果</p>
+                  <h2 id="preview-panel-title">模板预览</h2>
+                </div>
+                <p className="preview-meta">原版 PPT 参考图</p>
+              </div>
+
+              <figure className="preview-figure">
+                <img className="preview-image" src={TEMPLATE_PREVIEW_SRC} alt="默认模板效果参考图" />
+                <figcaption className="preview-caption">
+                  只展示模板样式参考，不实时替换输入文字。
+                </figcaption>
+              </figure>
+            </section>
+
             <section className="panel" aria-labelledby="accent-panel-title">
               <div className="panel-head">
                 <div>
@@ -409,24 +444,6 @@ export default function App() {
               ) : (
                 <p className="field-help">输入 6 位十六进制颜色。</p>
               )}
-            </section>
-
-            <section className="panel actions-panel" aria-labelledby="download-panel-title">
-              <div className="panel-head">
-                <div>
-                  <p className="panel-kicker">生成</p>
-                  <h2 id="download-panel-title">下载输出</h2>
-                </div>
-              </div>
-
-              <div className="actions">
-                <button className="primary-button" type="button" onClick={handleGenerate} disabled={!canGenerate}>
-                  {primaryActionBusyLabel}
-                </button>
-              </div>
-
-              <p className="field-help">当前 {inputLines.length} 行，预计生成 {summary.pageCount} 页。</p>
-              <p className="output-path">最近结果：{formatLastSaved(savedPath)}</p>
             </section>
           </aside>
         </section>

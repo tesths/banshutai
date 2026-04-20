@@ -56,13 +56,16 @@ describe("App", () => {
     return screen.findByText(/模板\s*已加载/);
   }
 
-  it("uses browser-first labels and download messaging in browser mode", async () => {
+  it("uses download messaging and the template default accent", async () => {
     const user = userEvent.setup();
     render(<App />);
 
     await waitForTemplateReady();
     expect(workflowMock.loadDefaultTemplateBytes).toHaveBeenCalledTimes(1);
     expect(screen.getByRole("button", { name: "生成并下载" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "板书台" })).toBeInTheDocument();
+    expect(screen.queryByText("浏览器版")).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "模板预览" })).toBeInTheDocument();
 
     await user.type(screen.getByPlaceholderText(/每行一页，直接粘贴/), "第一页\n第二页");
 
@@ -104,18 +107,21 @@ describe("App", () => {
     expect(screen.getByRole("button", { name: "生成并下载" })).toBeDisabled();
   });
 
-  it("renders browser-only copy", async () => {
+  it("renders the template default accent state", async () => {
     render(<App />);
 
     await waitForTemplateReady();
     expect(screen.getByRole("button", { name: "生成并下载" })).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "打开输出位置" })).not.toBeInTheDocument();
-    expect(screen.getByText(/面向教师的黑板帖生成器/)).toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: "摘要" })).not.toBeInTheDocument();
 
+    const accentInput = screen.getByPlaceholderText("FF6600") as HTMLInputElement;
     const colorPicker = screen.getByLabelText("原生取色器") as HTMLInputElement;
-    expect(colorPicker.value.toLowerCase()).toBe("#2f6bff");
-    expect(screen.getByText("模板默认蓝色")).toBeInTheDocument();
+    expect(accentInput).toHaveValue("4E95D9");
+    expect(colorPicker.value.toLowerCase()).toBe("#4e95d9");
+    expect(screen.getByAltText("默认模板效果参考图")).toBeInTheDocument();
+    expect(screen.getByText("原版 PPT 参考图")).toBeInTheDocument();
+    expect(screen.getByText("只展示模板样式参考，不实时替换输入文字。")).toBeInTheDocument();
   });
 
   it("keeps preset colors in sync across the preview, hex input, and color picker", async () => {
@@ -124,14 +130,14 @@ describe("App", () => {
 
     await waitForTemplateReady();
     await user.click(screen.getByRole("button", { name: "自定义" }));
-    await user.click(screen.getByRole("button", { name: "常用色 #2F6BFF" }));
+    await user.click(screen.getByRole("button", { name: "常用色 #4E95D9" }));
 
     const hexInput = screen.getByPlaceholderText("FF6600");
     const colorPicker = screen.getByLabelText("原生取色器") as HTMLInputElement;
 
-    expect(hexInput).toHaveValue("2F6BFF");
-    expect(colorPicker.value.toLowerCase()).toBe("#2f6bff");
-    expect(screen.getByText("#2F6BFF")).toBeInTheDocument();
+    expect(hexInput).toHaveValue("4E95D9");
+    expect(colorPicker.value.toLowerCase()).toBe("#4e95d9");
+    expect(screen.getByText("#4E95D9")).toBeInTheDocument();
   });
 
   it("syncs the native color picker into the hex input", async () => {
