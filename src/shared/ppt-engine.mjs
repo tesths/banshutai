@@ -21,7 +21,7 @@ const FULL_WIDTH_FACTOR = 0.92;
 const LINE_HEIGHT_FACTOR = 1.15;
 const OVERLAY_TOLERANCE = 2;
 const CJK_CHAR_UNITS = 1.1;
-const LONG_CJK_LABEL_UNITS = 1.23;
+const LONG_CJK_LABEL_UNITS = 1.3;
 const DEFAULT_FONT_SIZE = 16600;
 
 export async function generatePresentationBuffer({ templateBytes, lines, accentColor = null }) {

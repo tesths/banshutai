@@ -164,8 +164,21 @@ test("shrinks five-character CJK labels enough to stay on a single line", async 
   const textShapes = getTextShapes(slideDoc);
 
   assert.ok(
-    textShapes.every((shape) => Number(shape.fontSize) <= 12600),
-    "expected five-character CJK labels to shrink more aggressively than the current wrap-prone size"
+    textShapes.every((shape) => Number(shape.fontSize) <= 12400),
+    "expected five-character CJK labels to keep a safety margin below the wrap-prone size"
+  );
+});
+
+test("shrinks six-character CJK labels with extra headroom for Safari", async () => {
+  const zip = await generatePresentationZip({
+    lines: ["春江花月夜里"]
+  });
+  const slideDoc = await loadXml(zip, (await getOrderedSlidePaths(zip))[0]);
+  const textShapes = getTextShapes(slideDoc);
+
+  assert.ok(
+    textShapes.every((shape) => Number(shape.fontSize) <= 10000),
+    "expected six-character CJK labels to keep extra headroom against browser-specific wrapping"
   );
 });
 
