@@ -98,23 +98,21 @@ input[type="submit"] {
 .app-frame {
   width: min(1240px, calc(100vw - 32px));
   margin: 0 auto;
-  padding: 28px 0 36px;
+  padding: 28px 0 40px;
 }
 
 .shell-head {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 8px 0 20px;
+  padding: 10px 0 22px;
 }
 
 .shell-brand {
-  max-width: 860px;
+  display: grid;
+  gap: 16px;
+  max-width: 920px;
 }
 
 .shell-eyebrow {
-  margin: 0 0 10px;
+  margin: 0;
   color: var(--muted);
   font-size: 0.78rem;
   line-height: 1.2;
@@ -126,7 +124,7 @@ input[type="submit"] {
 .shell-brand h1 {
   margin: 0;
   font-family: var(--display-font);
-  font-size: clamp(2.3rem, 4vw, 4.1rem);
+  font-size: clamp(2.35rem, 4vw, 3.9rem);
   font-weight: 400;
   line-height: 0.98;
   letter-spacing: -0.04em;
@@ -134,8 +132,8 @@ input[type="submit"] {
 }
 
 .shell-copy {
-  margin: 16px 0 0;
-  max-width: 780px;
+  margin: 0;
+  max-width: 720px;
   color: var(--muted);
   font-size: 1rem;
   line-height: 1.75;
@@ -146,11 +144,15 @@ input[type="submit"] {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  justify-content: flex-end;
-  max-width: 300px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 640px;
 }
 
 .hero-pill {
+  display: flex;
+  align-items: center;
   padding: 10px 14px;
   border: 1px solid var(--line);
   border-radius: 9999px;
@@ -198,7 +200,7 @@ input[type="submit"] {
   line-height: 1.55;
   letter-spacing: 0.01em;
   text-align: center;
-  white-space: nowrap;
+  max-width: 28ch;
 }
 
 .status-strip {
@@ -315,8 +317,8 @@ input[type="submit"] {
 
 .workspace {
   display: grid;
-  grid-template-columns: minmax(0, 1.28fr) minmax(320px, 0.82fr);
-  gap: 18px;
+  grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
+  gap: 20px;
   align-items: start;
 }
 
@@ -333,7 +335,6 @@ input[type="submit"] {
 .composer {
   display: flex;
   flex-direction: column;
-  min-height: 540px;
   padding: 20px;
 }
 
@@ -385,7 +386,7 @@ input[type="submit"] {
 
 .paste-box textarea {
   width: 100%;
-  min-height: 420px;
+  min-height: 380px;
   resize: none;
   border: 1px solid rgba(55, 43, 24, 0.09);
   border-radius: 22px;
@@ -556,8 +557,8 @@ textarea:focus-visible {
 
 .accent-tools {
   display: grid;
-  gap: 12px;
-  margin-top: 14px;
+  gap: 10px;
+  margin-top: 12px;
 }
 
 .native-picker {
@@ -611,7 +612,7 @@ textarea:focus-visible {
 
 .preset-list {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
   gap: 8px;
 }
 
@@ -619,7 +620,8 @@ textarea:focus-visible {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 11px 12px;
+  min-height: 46px;
+  padding: 10px 12px;
   border: 1px solid var(--line);
   background: var(--surface);
   color: var(--text);
@@ -715,10 +717,14 @@ textarea:focus-visible {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
-  margin-top: 22px;
+  align-items: start;
+  margin-top: 24px;
 }
 
 .support-card {
+  align-self: start;
+  display: grid;
+  align-content: start;
   padding: 20px;
   border: 1px solid var(--line);
   border-radius: 24px;
@@ -781,11 +787,14 @@ textarea:focus-visible {
 }
 
 .site-foot {
-  padding: 18px 0 4px;
+  margin-top: 14px;
+  padding: 22px 0 8px;
+  border-top: 1px solid rgba(55, 43, 24, 0.08);
 }
 
 .site-foot p {
   margin: 0;
+  max-width: 68ch;
 }
 
 @media (max-width: 1120px) {
@@ -794,40 +803,38 @@ textarea:focus-visible {
   }
 
   .support-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .rail {
     position: static;
   }
 
-  .composer {
-    min-height: 500px;
+  .support-card:last-child {
+    grid-column: 1 / -1;
   }
 
   .paste-box textarea {
-    min-height: 340px;
+    min-height: 320px;
   }
 }
 
 @media (max-width: 720px) {
   .app-frame {
-    width: min(100vw, calc(100vw - 20px));
+    width: min(100%, calc(100vw - 20px));
     padding: 16px 0 24px;
   }
 
   .shell-head {
-    flex-direction: column;
-    align-items: flex-start;
+    padding-bottom: 18px;
   }
 
   .shell-brand h1 {
-    font-size: clamp(2rem, 10vw, 3rem);
+    font-size: clamp(2rem, 11vw, 2.85rem);
   }
 
   .hero-pills {
-    max-width: none;
-    justify-content: flex-start;
+    gap: 8px;
   }
 
   .status-strip {
@@ -868,12 +875,12 @@ textarea:focus-visible {
     border-radius: 16px;
   }
 
-  .preset-list {
+  .support-grid {
     grid-template-columns: 1fr;
   }
 
   .paste-box textarea {
-    min-height: 320px;
+    min-height: 300px;
   }
 }
 

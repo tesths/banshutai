@@ -102,6 +102,7 @@ describe("App", () => {
 
     await waitForTemplateReady();
 
+    expect(screen.getByRole("heading", { name: "模板已就绪，等待粘贴内容" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "适合哪些教学场景" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "三步生成课堂黑板贴" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "常见问题" })).toBeInTheDocument();

@@ -16,6 +16,8 @@ const DEFAULT_SHELL_ACCENT = `#${DEFAULT_ACCENT_HEX}`;
 const DEFAULT_OUTPUT_NAME = "板书台-导出结果.pptx";
 const ANALYSIS_DELAY_MS = 180;
 const CUSTOM_ACCENT_COPY = "仅覆盖蓝色描边层。";
+const READY_STATUS_MESSAGE = "模板已就绪，等待粘贴内容";
+const EMPTY_WORKFLOW_HINT = "粘贴多行文本后会自动预估页数并直接下载。";
 const TEMPLATE_PREVIEW_SRC = `${(import.meta.env.BASE_URL || "/").replace(/\/?$/, "/")}default-template-preview.png`;
 const ACCENT_PRESETS = [
   { name: "蓝", hex: "4E95D9" },
@@ -118,7 +120,7 @@ export default function App() {
     (inputLines.length > 0
       ? `已识别 ${inputLines.length} 行文本，预计输出 ${summary.pageCount} 页。`
       : templateBytes
-        ? "一行一页，粘贴后会自动预估并直接下载。"
+        ? EMPTY_WORKFLOW_HINT
         : "默认模板正在加载。");
   const statusTone = workflowError ? "error" : isLoadingTemplate || isAnalyzing || isGenerating ? "busy" : "ready";
 
@@ -128,6 +130,15 @@ export default function App() {
 
   useEffect(() => {
     if (!templateBytes) {
+      return;
+    }
+
+    if (inputLines.length === 0) {
+      analysisToken.current += 1;
+      setIsAnalyzing(false);
+      setAnalysisError(null);
+      setSummary(EMPTY_SUMMARY);
+      setStatusMessage(READY_STATUS_MESSAGE);
       return;
     }
 
@@ -163,7 +174,7 @@ export default function App() {
     return () => {
       window.clearTimeout(handle);
     };
-  }, [templateBytes, inputText]);
+  }, [inputLines.length, inputText, templateBytes]);
 
   async function reloadTemplate() {
     const token = ++templateLoadToken.current;
@@ -178,7 +189,7 @@ export default function App() {
       }
 
       setTemplateBytes(bytes);
-      setStatusMessage("默认模板已就绪");
+      setStatusMessage(READY_STATUS_MESSAGE);
     } catch (error) {
       if (templateLoadToken.current !== token) {
         return;
@@ -276,14 +287,14 @@ export default function App() {
             <p className="shell-copy">
               把课堂标题、板书关键词和词语卡片按一行一页排进模板，浏览器端直接生成并下载 PPTX 文件，适合语文、英语、班会等教学场景。
             </p>
-          </div>
 
-          <div className="hero-pills" aria-label="工具特点">
-            {HERO_PILLS.map((pill) => (
-              <span key={pill} className="hero-pill">
-                {pill}
-              </span>
-            ))}
+            <ul className="hero-pills" aria-label="工具特点">
+              {HERO_PILLS.map((pill) => (
+                <li key={pill} className="hero-pill">
+                  {pill}
+                </li>
+              ))}
+            </ul>
           </div>
         </header>
 
@@ -315,7 +326,10 @@ export default function App() {
           </div>
         </section>
 
-        <section className="workspace">
+        <section className="workspace" aria-labelledby="workspace-title">
+          <h2 id="workspace-title" className="sr-only">
+            生成工具工作台
+          </h2>
           <section className="composer panel" aria-labelledby="input-panel-title">
             <div className="panel-head">
               <div>
@@ -480,7 +494,10 @@ export default function App() {
           </aside>
         </section>
 
-        <section className="support-grid" aria-label="工具说明">
+        <section className="support-grid" aria-labelledby="support-section-title">
+          <h2 id="support-section-title" className="sr-only">
+            使用说明与常见问题
+          </h2>
           <article className="support-card" aria-labelledby="scenario-title">
             <p className="panel-kicker">适用场景</p>
             <h2 id="scenario-title">适合哪些教学场景</h2>

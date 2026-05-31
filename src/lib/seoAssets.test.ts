@@ -35,9 +35,12 @@ describe("seo assets", () => {
     expect(html).toContain("教师黑板贴生成器");
     expect(html).toContain("文本转 PPTX");
     expect(html).toContain("\"FAQPage\"");
+    expect(html).toContain("\"HowTo\"");
+    expect(html).toContain("\"WebSite\"");
     expect(html).toContain("https://banshutai.dididigu.com/default-template-preview.png");
     expect(html).toContain("<link rel=\"canonical\" href=\"https://banshutai.dididigu.com/\" />");
     expect(html).toContain("<meta property=\"og:url\" content=\"https://banshutai.dididigu.com/\" />");
     expect(html).toContain("og:image");
+    expect(html).toContain("twitter:image:alt");
   });
 });
