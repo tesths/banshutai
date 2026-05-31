@@ -2,7 +2,7 @@
   "name": "banshutai",
   "version": "1.0.0",
   "private": true,
-  "description": "教师黑板帖生成器，浏览器端批量生成 PPTX 黑板帖。",
+  "description": "教师黑板贴生成器与板书工具，浏览器端批量生成 PPTX 页面。",
   "engines": {
     "node": "24.x"
   },
@@ -13,7 +13,7 @@
     "test:ui": "vitest run",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.node.json --noEmit",
     "dev": "vite --host 127.0.0.1 --port 1420 --strictPort",
-    "build": "vite build",
+    "build": "vite build && node scripts/seo-assets.mjs dist",
     "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort"
   },
   "dependencies": {

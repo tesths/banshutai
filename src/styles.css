@@ -1,19 +1,19 @@
 :root {
   color-scheme: light;
-  --bg: #ffffff;
-  --surface: #ffffff;
-  --surface-soft: #fbfbfa;
-  --text: #111111;
-  --muted: #666666;
-  --faint: #9a9a96;
-  --line: rgba(17, 17, 17, 0.08);
-  --line-strong: rgba(17, 17, 17, 0.14);
+  --bg: #f4efe5;
+  --surface: rgba(255, 252, 246, 0.9);
+  --surface-soft: rgba(250, 245, 236, 0.92);
+  --text: #1b1711;
+  --muted: #675d4f;
+  --faint: #9a8f81;
+  --line: rgba(55, 43, 24, 0.1);
+  --line-strong: rgba(55, 43, 24, 0.18);
   --accent: #2f6bff;
   --danger: #b13d3d;
-  --shadow-panel: 0 1px 2px rgba(17, 17, 17, 0.04), 0 16px 48px rgba(17, 17, 17, 0.04);
-  --shadow-soft: 0 1px 2px rgba(17, 17, 17, 0.03), 0 10px 24px rgba(17, 17, 17, 0.03);
-  --display-font: "Iowan Old Style", "Palatino Linotype", "Songti SC", Georgia, serif;
-  --ui-font: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+  --shadow-panel: 0 1px 2px rgba(42, 31, 18, 0.03), 0 24px 60px rgba(66, 48, 27, 0.08);
+  --shadow-soft: 0 1px 2px rgba(42, 31, 18, 0.02), 0 12px 32px rgba(66, 48, 27, 0.05);
+  --display-font: "Iowan Old Style", "Palatino Linotype", "Songti SC", "STSong", Georgia, serif;
+  --ui-font: "Avenir Next", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
 }
 
 * {
@@ -29,7 +29,10 @@ body,
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--bg);
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.68), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.38), rgba(244, 239, 229, 0.78)),
+    var(--bg);
   color: var(--text);
   font-family: var(--ui-font);
   -webkit-font-smoothing: antialiased;
@@ -80,22 +83,44 @@ input[type="submit"] {
 
 .app-shell {
   min-height: 100dvh;
-  background: var(--bg);
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.34) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.34) 1px, transparent 1px),
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.56), transparent 42%);
+  background-color: var(--bg);
+  background-size:
+    100% 28px,
+    28px 100%,
+    100% 100%;
   color: var(--text);
 }
 
 .app-frame {
   width: min(1240px, calc(100vw - 32px));
   margin: 0 auto;
-  padding: 24px 0 28px;
+  padding: 28px 0 36px;
 }
 
 .shell-head {
-  padding: 8px 0 16px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 8px 0 20px;
 }
 
 .shell-brand {
-  max-width: none;
+  max-width: 860px;
+}
+
+.shell-eyebrow {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.2;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
 }
 
 .shell-brand h1 {
@@ -103,18 +128,38 @@ input[type="submit"] {
   font-family: var(--display-font);
   font-size: clamp(2.3rem, 4vw, 4.1rem);
   font-weight: 400;
-  line-height: 0.95;
-  letter-spacing: -0.05em;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
   text-wrap: balance;
 }
 
 .shell-copy {
-  margin: 14px 0 0;
-  max-width: none;
+  margin: 16px 0 0;
+  max-width: 780px;
   color: var(--muted);
-  font-size: 0.96rem;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.75;
   letter-spacing: 0.01em;
+}
+
+.hero-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+  max-width: 300px;
+}
+
+.hero-pill {
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 9999px;
+  background: rgba(255, 252, 246, 0.76);
+  box-shadow: var(--shadow-soft);
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
   white-space: nowrap;
 }
 
@@ -162,11 +207,14 @@ input[type="submit"] {
   justify-content: space-between;
   gap: 18px;
   margin: 0 0 18px;
-  padding: 14px 16px 15px;
-  border-radius: 20px;
-  border: 1px solid var(--line);
-  background: var(--surface);
+  padding: 16px 18px 17px;
+  border-radius: 24px;
+  border: 1px solid var(--line-strong);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(250, 245, 236, 0.94)),
+    var(--surface);
   box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(12px);
 }
 
 .status-strip-copy {
@@ -225,10 +273,12 @@ input[type="submit"] {
 
 .actions-panel {
   margin-top: 16px;
-  padding: 16px 16px 14px;
+  padding: 18px 16px 14px;
   border: 1px solid var(--line);
-  border-radius: 18px;
-  background: var(--surface-soft);
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(248, 242, 231, 0.92)),
+    var(--surface-soft);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
 }
 
@@ -272,16 +322,19 @@ input[type="submit"] {
 
 .panel {
   border: 1px solid var(--line);
-  background: var(--surface);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 250, 242, 0.9)),
+    var(--surface);
   box-shadow: var(--shadow-panel);
-  border-radius: 22px;
+  border-radius: 26px;
+  backdrop-filter: blur(10px);
 }
 
 .composer {
   display: flex;
   flex-direction: column;
   min-height: 540px;
-  padding: 18px;
+  padding: 20px;
 }
 
 .rail {
@@ -334,11 +387,13 @@ input[type="submit"] {
   width: 100%;
   min-height: 420px;
   resize: none;
-  border: 1px solid rgba(17, 17, 17, 0.08);
-  border-radius: 18px;
-  background: var(--surface-soft);
+  border: 1px solid rgba(55, 43, 24, 0.09);
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(250, 244, 234, 0.9)),
+    var(--surface-soft);
   color: var(--text);
-  padding: 18px 18px 22px;
+  padding: 20px 20px 24px;
   outline: none;
   line-height: 1.8;
   font-size: 0.98rem;
@@ -457,7 +512,7 @@ textarea:focus-visible {
 .segment.active {
   border-color: color-mix(in srgb, var(--accent) 22%, rgba(17, 17, 17, 0.14));
   color: var(--text);
-  background: color-mix(in srgb, var(--accent) 5%, white);
+  background: color-mix(in srgb, var(--accent) 8%, rgba(255, 252, 246, 0.96));
   box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 8%, rgba(17, 17, 17, 0.04));
 }
 
@@ -467,9 +522,11 @@ textarea:focus-visible {
   gap: 12px;
   margin-top: 14px;
   padding: 14px;
-  border-radius: 18px;
+  border-radius: 20px;
   border: 1px solid var(--line);
-  background: var(--surface-soft);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(248, 242, 231, 0.9)),
+    var(--surface-soft);
 }
 
 .accent-preview strong {
@@ -507,7 +564,7 @@ textarea:focus-visible {
   display: grid;
   gap: 8px;
   padding: 12px 14px;
-  border-radius: 18px;
+  border-radius: 20px;
   border: 1px solid var(--line);
   background: var(--surface);
   box-shadow: var(--shadow-soft);
@@ -597,7 +654,7 @@ textarea:focus-visible {
   gap: 10px;
   margin-top: 14px;
   padding: 10px 14px;
-  border-radius: 18px;
+  border-radius: 20px;
   border: 1px solid var(--line);
   background: var(--surface);
   box-shadow: var(--shadow-soft);
@@ -639,9 +696,9 @@ textarea:focus-visible {
 .primary-button {
   width: 100%;
   padding: 14px 18px;
-  background: #111111;
+  background: #2a2117;
   color: #ffffff;
-  box-shadow: 0 10px 24px rgba(17, 17, 17, 0.14);
+  box-shadow: 0 14px 30px rgba(42, 33, 23, 0.2);
 }
 
 .secondary-button {
@@ -654,8 +711,89 @@ textarea:focus-visible {
   word-break: break-word;
 }
 
+.support-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.support-card {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(249, 243, 232, 0.9)),
+    var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.support-card h2 {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+.support-copy,
+.support-list,
+.support-steps,
+.faq-list dd,
+.site-foot p {
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+}
+
+.support-copy {
+  margin: 14px 0 0;
+}
+
+.support-list,
+.support-steps {
+  margin: 16px 0 0;
+  padding-left: 1.2rem;
+}
+
+.support-list li,
+.support-steps li {
+  margin-top: 10px;
+}
+
+.faq-list {
+  margin: 16px 0 0;
+}
+
+.faq-item + .faq-item {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.faq-list dt {
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.faq-list dd {
+  margin: 6px 0 0;
+}
+
+.site-foot {
+  padding: 18px 0 4px;
+}
+
+.site-foot p {
+  margin: 0;
+}
+
 @media (max-width: 1120px) {
   .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .support-grid {
     grid-template-columns: 1fr;
   }
 
@@ -678,12 +816,18 @@ textarea:focus-visible {
     padding: 16px 0 24px;
   }
 
+  .shell-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .shell-brand h1 {
     font-size: clamp(2rem, 10vw, 3rem);
   }
 
-  .shell-copy {
-    white-space: normal;
+  .hero-pills {
+    max-width: none;
+    justify-content: flex-start;
   }
 
   .status-strip {

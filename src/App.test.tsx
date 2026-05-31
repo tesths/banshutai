@@ -63,7 +63,7 @@ describe("App", () => {
     await waitForTemplateReady();
     expect(workflowMock.loadDefaultTemplateBytes).toHaveBeenCalledTimes(1);
     expect(screen.getByRole("button", { name: "生成并下载" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "板书台" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /板书台，教师黑板贴生成器/ })).toBeInTheDocument();
     expect(screen.queryByText("浏览器版")).not.toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "模板预览" })).toBeInTheDocument();
 
@@ -95,6 +95,19 @@ describe("App", () => {
 
     expect(await screen.findByText("已生成并下载 demo-output.pptx")).toBeInTheDocument();
     expect(await screen.findByText("最近结果：demo-output.pptx")).toBeInTheDocument();
+  });
+
+  it("renders teacher-focused support sections for scanning and search", async () => {
+    render(<App />);
+
+    await waitForTemplateReady();
+
+    expect(screen.getByRole("heading", { name: "适合哪些教学场景" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "三步生成课堂黑板贴" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "常见问题" })).toBeInTheDocument();
+    expect(screen.getByText("语文课堂标题、词语卡片、板书关键词")).toBeInTheDocument();
+    expect(screen.getByText("把每一行文字粘贴进输入框")).toBeInTheDocument();
+    expect(screen.getByText("浏览器端直接生成并下载 `.pptx` 文件，不需要安装桌面软件。")).toBeInTheDocument();
   });
 
   it("surfaces template loading failures before the workspace becomes usable", async () => {

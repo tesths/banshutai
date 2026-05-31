@@ -25,6 +25,27 @@ const ACCENT_PRESETS = [
   { name: "红", hex: "B24B3F" },
   { name: "紫", hex: "8A3FFC" }
 ] as const;
+const HERO_PILLS = ["浏览器端生成", "课堂黑板贴排版", "PPTX 直接下载"] as const;
+const SCENARIO_TAGS = ["语文课堂标题、词语卡片、板书关键词", "英语短句、班会口号、小组展示标题", "备课时批量整理一行一页的课堂用字"] as const;
+const QUICK_STEPS = [
+  "把每一行文字粘贴进输入框",
+  "确认页数预估，按需调整描边颜色",
+  "点击生成并下载，直接拿到课堂可用的 PPTX 文件"
+] as const;
+const FAQ_ITEMS = [
+  {
+    question: "板书台适合做什么？",
+    answer: "适合教师快速制作课堂标题、黑板贴、词语卡片和板书关键词，不需要从空白 PPT 反复复制页面。"
+  },
+  {
+    question: "需要安装软件吗？",
+    answer: "浏览器端直接生成并下载 `.pptx` 文件，不需要安装桌面软件。"
+  },
+  {
+    question: "可以改颜色吗？",
+    answer: "可以。默认保留模板原始描边，也可以切换到自定义颜色，只覆盖蓝色描边层。"
+  }
+] as const;
 
 const EMPTY_SUMMARY: PptSummary = {
   lineCount: 0,
@@ -250,8 +271,19 @@ export default function App() {
       <main className="app-frame">
         <header className="shell-head">
           <div className="shell-brand">
-            <h1>板书台</h1>
-            <p className="shell-copy">面向教师的黑板帖生成器。多行文本一行一页，自动预估页数并直接下载 PPTX 结果。</p>
+            <p className="shell-eyebrow">教师板书工具</p>
+            <h1>板书台，教师黑板贴生成器</h1>
+            <p className="shell-copy">
+              把课堂标题、板书关键词和词语卡片按一行一页排进模板，浏览器端直接生成并下载 PPTX 文件，适合语文、英语、班会等教学场景。
+            </p>
+          </div>
+
+          <div className="hero-pills" aria-label="工具特点">
+            {HERO_PILLS.map((pill) => (
+              <span key={pill} className="hero-pill">
+                {pill}
+              </span>
+            ))}
           </div>
         </header>
 
@@ -447,6 +479,48 @@ export default function App() {
             </section>
           </aside>
         </section>
+
+        <section className="support-grid" aria-label="工具说明">
+          <article className="support-card" aria-labelledby="scenario-title">
+            <p className="panel-kicker">适用场景</p>
+            <h2 id="scenario-title">适合哪些教学场景</h2>
+            <p className="support-copy">
+              这是一款教师板书工具，适合把短句、标题、词语和课堂重点快速整理成一页一条的黑板贴或投屏内容。
+            </p>
+            <ul className="support-list">
+              {SCENARIO_TAGS.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </article>
+
+          <article className="support-card" aria-labelledby="steps-title">
+            <p className="panel-kicker">使用方式</p>
+            <h2 id="steps-title">三步生成课堂黑板贴</h2>
+            <ol className="support-steps">
+              {QUICK_STEPS.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
+            </ol>
+          </article>
+
+          <article className="support-card" aria-labelledby="faq-title">
+            <p className="panel-kicker">常见问题</p>
+            <h2 id="faq-title">常见问题</h2>
+            <dl className="faq-list">
+              {FAQ_ITEMS.map((item) => (
+                <div key={item.question} className="faq-item">
+                  <dt>{item.question}</dt>
+                  <dd>{item.answer}</dd>
+                </div>
+              ))}
+            </dl>
+          </article>
+        </section>
+
+        <footer className="site-foot">
+          <p>面向教师的黑板贴生成器，同时覆盖文本转 PPTX、课堂板书整理和批量页面生成场景。</p>
+        </footer>
       </main>
     </div>
   );
